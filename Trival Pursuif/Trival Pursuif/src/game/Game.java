@@ -31,18 +31,24 @@ public class Game extends SimpleApplication {
 		StartScreenState startScreenState = new StartScreenState(this, nifty);
 		LauncherScreenState launcherScreenState = new LauncherScreenState(this, nifty);
 		UpdateQuestionVaultScreenState updateQuestionVaultScreenState = new UpdateQuestionVaultScreenState(this, nifty);
+		AddDataScreenState addDataScreenState = new AddDataScreenState(this, nifty);
+		EditDataScreenState editDataScreenState = new EditDataScreenState(this, nifty);
 		
 		// Register with app's stateManager
 		stateManager.attach(startScreenState);
 		stateManager.attach(launcherScreenState);
 		stateManager.attach(updateQuestionVaultScreenState);
+		stateManager.attach(addDataScreenState);
+		stateManager.attach(editDataScreenState);
 		
 		// notify boilerplate
 		guiViewPort.addProcessor(niftyDisplay);
 		flyCam.setDragToRotate(true);
 		
 		// load XML GUI into nifty
-		nifty.fromXml("Interface/screens.xml", "start", startScreenState, launcherScreenState, updateQuestionVaultScreenState);
+		nifty.fromXml("Interface/screens.xml", "start", 
+				startScreenState, launcherScreenState, updateQuestionVaultScreenState,
+				addDataScreenState, editDataScreenState);
 		inputManager.setCursorVisible(true);
 	}
 
