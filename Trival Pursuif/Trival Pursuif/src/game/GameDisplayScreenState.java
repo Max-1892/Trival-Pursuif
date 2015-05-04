@@ -6,8 +6,11 @@ import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.asset.AssetManager;
 import com.jme3.math.ColorRGBA;
+import com.jme3.math.Vector3f;
 import com.jme3.renderer.ViewPort;
+import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
+import com.jme3.scene.Spatial;
 
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.controls.TextField;
@@ -26,6 +29,26 @@ public class GameDisplayScreenState extends AbstractAppState implements ScreenCo
 	public GameDisplayScreenState(SimpleApplication app, Nifty nifty) {
 		this.app = app;
 		this.nifty = nifty;
+	}
+
+	public void moveUp() {
+		Spatial player = app.getRootNode().getChild("playerPiece");
+		player.move(new Vector3f(0, .1f, 0));
+	}
+	
+	public void moveDown() {
+		Spatial player = app.getRootNode().getChild("playerPiece");
+		player.move(new Vector3f(0, -.1f, 0));
+	}
+	
+	public void moveLeft() {
+		Spatial player = app.getRootNode().getChild("playerPiece");
+		player.move(new Vector3f(-.1f, 0, 0));
+	}
+	
+	public void moveRight() {
+		Spatial player = app.getRootNode().getChild("playerPiece");
+		player.move(new Vector3f(.1f, 0, 0));
 	}
 
 	@Override

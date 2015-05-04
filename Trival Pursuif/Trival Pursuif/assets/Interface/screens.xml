@@ -259,5 +259,31 @@
 	<screen id="finalTurn" controller="game.FinalTurnScreenState">
 	</screen>-->
 	<screen id="gameDisplay" controller="game.GameDisplayScreenState">
+		<layer childLayout="horizontal">
+			<panel width="80%" height="100%" childLayout="vertical"></panel>
+			<panel id="panel_right" width="20%" height="100%" childLayout="vertical">
+				<panel width="100%" height="25%" childLayout="center">
+					<control id="up_button" name="button" label="Up">
+						<interact onClick="moveUp()" />
+					</control>
+				</panel>
+				<panel width="100%" height="25%" childLayout="center">
+					<control id="down_button" name="button" label="Down">
+						<interact onClick="moveDown()" />
+					</control>
+				</panel>
+				<panel width="100%" height="25%" childLayout="center">
+					<control id="left_button" name="button" label="Left">
+						<interact onClick="moveLeft()" />
+					</control>
+				</panel>
+				<panel width="100%" height="25%" childLayout="center">
+					<control id="right_button" name="button" label="Right">
+						<interact onClick="moveRight()" />
+					</control>
+				</panel>
+
+			</panel>
+		</layer>
 	</screen>
 </nifty>
