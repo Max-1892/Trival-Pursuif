@@ -5,7 +5,9 @@ import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.asset.AssetManager;
+import com.jme3.collision.CollisionResults;
 import com.jme3.math.ColorRGBA;
+import com.jme3.math.Ray;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Geometry;
@@ -32,25 +34,39 @@ public class GameDisplayScreenState extends AbstractAppState implements ScreenCo
 	}
 
 	public void moveUp() {
-		Spatial player = app.getRootNode().getChild("playerPiece");
-		player.move(new Vector3f(0, .1f, 0));
+		Spatial player = app.getRootNode().getChild("redPlayer");
+		player.move(new Vector3f(0, 1f, 0).mult(Game.tileSize));
 	}
 	
 	public void moveDown() {
-		Spatial player = app.getRootNode().getChild("playerPiece");
-		player.move(new Vector3f(0, -.1f, 0));
+		Spatial player = app.getRootNode().getChild("redPlayer");
+		player.move(new Vector3f(0, -1f, 0).mult(Game.tileSize));
 	}
 	
 	public void moveLeft() {
-		Spatial player = app.getRootNode().getChild("playerPiece");
-		player.move(new Vector3f(-.1f, 0, 0));
+		Spatial player = app.getRootNode().getChild("redPlayer");
+		player.move(new Vector3f(-1f, 0, 0).mult(Game.tileSize));
 	}
 	
 	public void moveRight() {
-		Spatial player = app.getRootNode().getChild("playerPiece");
-		player.move(new Vector3f(.1f, 0, 0));
+		Spatial player = app.getRootNode().getChild("redPlayer");
+		player.move(new Vector3f(1f, 0, 0).mult(Game.tileSize));
 	}
-
+	
+	public void endTurn() {
+		Spatial player = app.getRootNode().getChild("redPlayer");
+		CollisionResults results = new CollisionResults();
+		Ray ray = new Ray(player.getWorldTranslation(), new Vector3f(0,0,1f));
+		//System.out.println("Player location: " + app.getRootNode().getChild("redPlayer").getWorldTranslation().toString());
+		//System.out.println("Start box location: " + app.getRootNode().getChild("startSquare").getWorldTranslation().toString());
+		//System.out.println("Blue HQ location: " + app.getRootNode().getChild("blueHq").getWorldTranslation().toString());
+		//System.out.println("Ray: " + ray.toString());
+		app.getRootNode().collideWith(ray, results);
+		for (int i = 0; i < results.size(); i++) {
+			System.out.println(results.getCollision(i).getGeometry().getName());
+		}
+	}
+	
 	@Override
 	public void initialize(AppStateManager stateManager, Application app) {
 		// TODO: initialize your AppState, e.g. attach spatials to rootNode
