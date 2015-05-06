@@ -37,23 +37,19 @@ public class LauncherScreenState extends AbstractAppState implements ScreenContr
 		int count = 0;
 		TextField textField;
 		textField = screen.findNiftyControl("red_player_name", TextField.class);
-		if (textField.getDisplayedText() != null) {
-			System.out.println("red: " + textField.getDisplayedText());
+		if (textField.getRealText().length() > 0)  {
 			count++;
 		}
 		textField = screen.findNiftyControl("white_player_name", TextField.class);
-		if (textField.getDisplayedText() != null) {
-			System.out.println("white: " + textField.getDisplayedText());
+		if (textField.getRealText().length() > 0) {
 			count++;
 		}
 		textField = screen.findNiftyControl("blue_player_name", TextField.class);
-		if (textField.getDisplayedText() != null) {
-			System.out.println("blue: " + textField.getDisplayedText());
+		if (textField.getRealText().length() > 0) {
 			count++;
 		}
 		textField = screen.findNiftyControl("green_player_name", TextField.class);
-		if (textField.getDisplayedText() != null) {
-			System.out.println("green: " + textField.getDisplayedText());
+		if (textField.getRealText().length()> 0) {
 			count++;
 		}
 		System.out.println("We have " + count + " players!");

@@ -18,6 +18,7 @@ public class Game extends SimpleApplication {
 
 	public static final float tileSize = 0.1f;
 	private final Vector3f boardCenterOffset = new Vector3f(-2f,0,0);
+	private static int squareNumber = 0;
 
 	private void buildPlayer(float width, float height,
 			String name, ColorRGBA color,
@@ -44,6 +45,7 @@ public class Game extends SimpleApplication {
 		geom.setMaterial(mat);
 		geom.move(new Vector3f(moveX*tileSize, moveY*tileSize, 0));
 		geom.setUserData("category", category.toString());
+		geom.setUserData("color", color.toString());
 		rootNode.attachChild(geom);
 	}
 	
@@ -55,39 +57,51 @@ public class Game extends SimpleApplication {
 		for(int i = 1; i < 7; i++) {
 			Square sq = SquareIterator.getNextSquare();
 			buildBoardSquare(tileSize, tileSize,
-				"sq", sq.getColor(), 
+				"sq" + Game.squareNumber, sq.getColor(), 
 				-6f, (float)3-i, sq.getCategory());
+			Game.squareNumber++;
 		}
 	}
 	
 	private void buildRightSide() {
-		// red "headquarters" square
+		// white "headquarters" square
 		buildBoardSquare(tileSize, tileSize,
-				"redHq", ColorRGBA.Red, 
-				2f, 3f, SquareCategory.PEOPLE);
+				"whiteHq", ColorRGBA.White, 
+				2f, -3f, SquareCategory.EVENTS);
 		for(int i = 1; i < 7; i++) {
 			Square sq = SquareIterator.getNextSquare();
 			buildBoardSquare(tileSize, tileSize,
-				"sq", sq.getColor(), 
-				2f, (float)3-i, sq.getCategory());
+				"sq" + Game.squareNumber, sq.getColor(), 
+				2f, (float)-3+i, sq.getCategory());
+			Game.squareNumber++;
 		}
 	}
 	
 	private void buildTopSide() {
+		// red "headquarters" square
+		buildBoardSquare(tileSize, tileSize,
+				"redHq", ColorRGBA.Red, 
+				2f, 3f, SquareCategory.PEOPLE);
 		for(int i = 1; i < 8; i++) {
 			Square sq = SquareIterator.getNextSquare();
 			buildBoardSquare(tileSize, tileSize,
-				"sq", sq.getColor(), 
-				(float)-6+i, 3f, sq.getCategory());
+				"sq" + Game.squareNumber, sq.getColor(), 
+				(float)2-i, 3f, sq.getCategory());
+			Game.squareNumber++;
 		}
 	}
 	
 	private void buildBottomSide() {
+		// green "headquarters" square
+		buildBoardSquare(tileSize, tileSize,
+				"greenHq", ColorRGBA.Green, 
+				-6f, -3f, SquareCategory.INDEPENDENCE_DAY);
 		for(int i = 1; i < 8; i++) {
 			Square sq = SquareIterator.getNextSquare();
 			buildBoardSquare(tileSize, tileSize,
-				"sq", sq.getColor(), 
+				"sq" + Game.squareNumber, sq.getColor(), 
 				(float)-6+i, -3f, sq.getCategory());
+			Game.squareNumber++;
 		}
 	}
 	
@@ -100,8 +114,9 @@ public class Game extends SimpleApplication {
 			}
 			
 			buildBoardSquare(tileSize, tileSize,
-				"sq", currentSq.getColor(), 
+				"sq" + Game.squareNumber, currentSq.getColor(), 
 				-2, (float)i, currentSq.getCategory());
+			Game.squareNumber++;
 		}
 	}
 	private void buildDownSpoke() {
@@ -112,8 +127,9 @@ public class Game extends SimpleApplication {
 			}
 			
 			buildBoardSquare(tileSize, tileSize,
-				"sq", currentSq.getColor(), 
+				"sq" + Game.squareNumber, currentSq.getColor(), 
 				-2, (float)-i, currentSq.getCategory());
+			Game.squareNumber++;
 		}
 	}
 	private void buildLeftSpoke() {
@@ -124,8 +140,9 @@ public class Game extends SimpleApplication {
 			}
 			
 			buildBoardSquare(tileSize, tileSize,
-				"sq", currentSq.getColor(), 
+				"sq" + Game.squareNumber, currentSq.getColor(), 
 				(float)-2-i, 0, currentSq.getCategory());
+			Game.squareNumber++;
 		}
 	}
 	private void buildRightSpoke() {
@@ -137,8 +154,9 @@ public class Game extends SimpleApplication {
 			}
 			
 			buildBoardSquare(tileSize, tileSize,
-				"sq", currentSq.getColor(), 
+				"sq" + Game.squareNumber, currentSq.getColor(), 
 				(float)-2+i, 0, currentSq.getCategory());
+			Game.squareNumber++;
 		}
 	}
 	
@@ -147,7 +165,7 @@ public class Game extends SimpleApplication {
 		Geometry boardGeom = new Geometry("board", board);
 		Material boardMat = new Material(assetManager,
 				"Common/MatDefs/Misc/Unshaded.j3md");
-		boardMat.setColor("Color", ColorRGBA.White);
+		boardMat.setColor("Color", ColorRGBA.Gray);
 		boardGeom.setMaterial(boardMat);
 		boardGeom.move(new Vector3f(-1f, -1f, 0));
 		rootNode.attachChild(boardGeom);
@@ -159,11 +177,11 @@ public class Game extends SimpleApplication {
 				-2f, 0f, SquareCategory.ANY);
 
 		buildLeftSide();
+		buildUpSpoke();
+		buildDownSpoke();
 		buildRightSide();
 		buildTopSide();
 		buildBottomSide();
-		buildUpSpoke();
-		buildDownSpoke();
 		buildLeftSpoke();
 		buildRightSpoke();
 		

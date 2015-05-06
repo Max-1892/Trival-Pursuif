@@ -1,5 +1,9 @@
 package game;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.Random;
+
 import com.jme3.app.Application;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AbstractAppState;
@@ -16,6 +20,7 @@ import com.jme3.scene.Spatial;
 
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.controls.TextField;
+import de.lessvoid.nifty.elements.render.TextRenderer;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
 import de.lessvoid.xml.lwxs.elements.Element;
@@ -23,6 +28,8 @@ import de.lessvoid.xml.lwxs.elements.Element;
 public class GameDisplayScreenState extends AbstractAppState implements ScreenController {
 	private Nifty nifty;
 	private SimpleApplication app;
+	private int movesRemaining = -1;
+	private Random rand = new Random();
 
 	// Needed for Nifty to work
 	public GameDisplayScreenState() {
@@ -32,38 +39,71 @@ public class GameDisplayScreenState extends AbstractAppState implements ScreenCo
 		this.app = app;
 		this.nifty = nifty;
 	}
+	
+	private void updateMovesRemaining() {
+		de.lessvoid.nifty.elements.Element movesRemainingText = nifty.getCurrentScreen().findElementByName("movesRemaining");
+		movesRemainingText.getRenderer(TextRenderer.class).setText(((Integer)movesRemaining).toString());
+	}
 
+	public void roll() {
+		movesRemaining = rand.nextInt(6) + 1;
+		updateMovesRemaining();
+	}
+	
 	public void moveUp() {
 		Spatial player = app.getRootNode().getChild("redPlayer");
 		player.move(new Vector3f(0, 1f, 0).mult(Game.tileSize));
+		movesRemaining--;
+		if (movesRemaining == 0) {
+			endTurn();
+		}
+		updateMovesRemaining();
 	}
 	
 	public void moveDown() {
 		Spatial player = app.getRootNode().getChild("redPlayer");
 		player.move(new Vector3f(0, -1f, 0).mult(Game.tileSize));
+		movesRemaining--;
+		if (movesRemaining == 0) {
+			endTurn();
+		}
+		updateMovesRemaining();
 	}
 	
 	public void moveLeft() {
 		Spatial player = app.getRootNode().getChild("redPlayer");
 		player.move(new Vector3f(-1f, 0, 0).mult(Game.tileSize));
+		movesRemaining--;
+		if (movesRemaining == 0) {
+			endTurn();
+		}
+		updateMovesRemaining();
 	}
 	
 	public void moveRight() {
 		Spatial player = app.getRootNode().getChild("redPlayer");
 		player.move(new Vector3f(1f, 0, 0).mult(Game.tileSize));
+		movesRemaining--;
+		if (movesRemaining == 0) {
+			endTurn();
+		}
+		updateMovesRemaining();
 	}
 	
 	public void endTurn() {
 		Spatial player = app.getRootNode().getChild("redPlayer");
 		CollisionResults results = new CollisionResults();
-		Ray ray = new Ray(player.getWorldTranslation(), new Vector3f(0,0,1f));
-		//System.out.println("Player location: " + app.getRootNode().getChild("redPlayer").getWorldTranslation().toString());
-		//System.out.println("Start box location: " + app.getRootNode().getChild("startSquare").getWorldTranslation().toString());
-		//System.out.println("Blue HQ location: " + app.getRootNode().getChild("blueHq").getWorldTranslation().toString());
-		//System.out.println("Ray: " + ray.toString());
+		Ray ray = new Ray(player.getWorldBound().getCenter(), new Vector3f(0,0,1f));
 		app.getRootNode().collideWith(ray, results);
 		for (int i = 0; i < results.size(); i++) {
-			System.out.println(results.getCollision(i).getGeometry().getName());
+			Collection<String> keys = app.getRootNode().getChild((results.getCollision(i).getGeometry().getName())).getUserDataKeys();
+			if (keys.contains("category") && keys.contains("color")) {
+				System.out.println("Color: " + 
+						app.getRootNode().getChild((results.getCollision(i).getGeometry().getName())).getUserData("color"));
+				System.out.println("Category: " + 
+						app.getRootNode().getChild((results.getCollision(i).getGeometry().getName())).getUserData("category"));
+				System.out.println("Here");
+			}
 		}
 	}
 	
