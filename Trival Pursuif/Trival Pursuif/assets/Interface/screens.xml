@@ -77,7 +77,7 @@
 					</panel>
 					<panel id="start_button_panel" width="50%" align="center" childLayout="center">
 						<control id="start_button" name="button" label="Start Game!">
-							<interact onClick="switchScreens(gameDisplay)" />
+							<interact onClick="initGame()"/>
 						</control>
 					</panel>
 				</panel>
@@ -252,9 +252,42 @@
 			</panel>
 		</layer>
 	</screen>
-	<!--  <screen id="questionAnswer" controller="game.QuestionAnswerScreenState">
-	</screen>
-	<screen id="gameOver" controller="game.GameOverScreenState">
+	<!--<popup id="questionAnswer" childLayout="absolute-inside" controller="game.AddDataScreenState">
+		<panel height="100%" width="100%" childLayout="center">
+			<panel height="20%" width="100%" childLayout="center" />
+			<panel height="20%" width="80%" childLayout="center" backgroundColor="#f00f">
+				<control id="question" name="label" text="Who was the president of Mars during the Second Uprising?" />
+			</panel>
+			<panel height="20%" width="80%" childLayout="center" backgroundColor="#f00f">
+				<control id="RadioGroup-1" name="radioButtonGroup" />
+				<panel childLayout="horizontal">
+                  <control name="label" text="Radio Buttons" />
+                  <panel childLayout="vertical" backgroundColor="#8001" paddingLeft="7px" paddingRight="7px" paddingTop="4px" paddingBottom="4px" width="105px">
+                    <effect>
+                      <onActive name="border" color="#0008" />
+                    </effect>
+                    <panel childLayout="horizontal">
+                      <control name="label" text="Option 1" with="60px" />
+                      <control name="radioButton" id="option-1" group="RadioGroup-1" />
+                    </panel>
+                    <panel childLayout="horizontal">
+                      <control name="label" text="Option 2" with="60px" />
+                      <control name="radioButton" id="option-2" group="RadioGroup-1" />
+                    </panel>
+                    <panel childLayout="horizontal">
+                      <control name="label" text="Option 3" with="60px" />
+                      <control name="radioButton" id="option-3" group="RadioGroup-1" />
+                    </panel>
+                    <panel childLayout="horizontal">
+                      <control name="label" text="Option 4" with="60px" />
+                      <control name="radioButton" id="option-4" group="RadioGroup-1" />
+                    </panel>
+                  </panel>
+                </panel>	
+			</panel>
+		</panel>
+	</popup>-->
+	<!-- <screen id="gameOver" controller="game.GameOverScreenState">
 	</screen>
 	<screen id="finalTurn" controller="game.FinalTurnScreenState">
 	</screen>-->
@@ -284,29 +317,34 @@
 					</control>
 				</panel>
 				<panel width="100%" height="10%" childLayout="center"></panel>
-				<panel width="100%" height="40%" childLayout="center">
-					<panel width="100%" height="95%" childLayout="vertical">
+				<panel width="100%" height="60%" childLayout="center">
+					<panel width="100%" height="100%" childLayout="vertical">
 						<panel width="100%" height="15%" childLayout="center">
+							<text text="Who's up?" font="Interface/Fonts/Default.fnt" />
+						</panel>
+						<panel width="100%" height="15%" childLayout="center">
+							<text id="currentPlayer" text="" font="Interface/Fonts/Default.fnt" />
+						</panel>
+						<panel width="100%" height="10%" childLayout="center">
 							<control id="roll_button" name="button" label="Roll Dice">
 								<interact onClick="roll()" />
 							</control>
 						</panel>
-						<panel width="100%" heigth="85%" childLayout="vertical">
-							<panel width="100%" childLayout="center">
+						<panel width="100%" height="20%" childLayout="vertical">
+							<panel width="100%" height="40%" childLayout="center">
 								<control name="label" text="Moves remaining: " />
 							</panel>
-							<panel width="100%" childLayout="center">
+							<panel width="100%" height="50%" childLayout="center">
 								<text id="movesRemaining" text="" font="Interface/Fonts/Default.fnt" />
 							</panel>
 						</panel>
-					</panel>
-					<panel width="100%" height="5%" childLayout="center">
-						<control id="end_turn_button" name="button" label="End Turn">
-							<interact onClick="endTurn()" />
-						</control>
+						<panel width="100%" height="10%" childLayout="center">
+							<control id="end_turn_button" name="button" label="End Turn Early">
+								<interact onClick="endTurn()" />
+							</control>
+						</panel>
 					</panel>
 				</panel>
-
 			</panel>
 		</layer>
 	</screen>

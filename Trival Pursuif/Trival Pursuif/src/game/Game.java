@@ -186,11 +186,19 @@ public class Game extends SimpleApplication {
 		buildRightSpoke();
 		
 
-		// Build all players
-		// Player piece
+		// Build all players and detect them later if needed
 		buildPlayer(tileSize*.5f, tileSize*.5f,
 				"redPlayer", ColorRGBA.Red,
-				boardCenterOffset);
+				boardCenterOffset.add(new Vector3f(0,0,0)));
+		buildPlayer(tileSize*.5f, tileSize*.5f,
+				"bluePlayer", ColorRGBA.Blue,
+				boardCenterOffset.add(new Vector3f(0,5*tileSize,0)));
+		buildPlayer(tileSize*.5f, tileSize*.5f,
+				"whitePlayer", ColorRGBA.White,
+				boardCenterOffset.add(new Vector3f(5*tileSize,0,0)));
+		buildPlayer(tileSize*.5f, tileSize*.5f,
+				"greenPlayer", ColorRGBA.Green,
+				boardCenterOffset.add(new Vector3f(5*tileSize,5*tileSize,0)));
 	}
 	
 	@Override
@@ -208,6 +216,7 @@ public class Game extends SimpleApplication {
 		AddDataScreenState addDataScreenState = new AddDataScreenState(this, nifty);
 		EditDataScreenState editDataScreenState = new EditDataScreenState(this, nifty);
 		GameDisplayScreenState gameDisplayScreenState = new GameDisplayScreenState(this, nifty);
+		QuestionAnswerScreenState questionAnswerScreenState = new QuestionAnswerScreenState(this, nifty);
 		
 		// Register with app's stateManager
 		stateManager.attach(startScreenState);
@@ -216,6 +225,7 @@ public class Game extends SimpleApplication {
 		stateManager.attach(addDataScreenState);
 		stateManager.attach(editDataScreenState);
 		stateManager.attach(gameDisplayScreenState);
+		stateManager.attach(questionAnswerScreenState);
 		
 		// notify boilerplate
 		guiViewPort.addProcessor(niftyDisplay);
@@ -223,7 +233,8 @@ public class Game extends SimpleApplication {
 		// load XML GUI into nifty
 		nifty.fromXml("Interface/screens.xml", "start", 
 				startScreenState, launcherScreenState, updateQuestionVaultScreenState,
-				addDataScreenState, editDataScreenState, gameDisplayScreenState);
+				addDataScreenState, editDataScreenState, gameDisplayScreenState,
+				questionAnswerScreenState);
 		cam.setParallelProjection(true);
 		getFlyByCamera().setEnabled(false);
 		setDisplayStatView(false);

@@ -28,8 +28,9 @@ import de.lessvoid.xml.lwxs.elements.Element;
 public class GameDisplayScreenState extends AbstractAppState implements ScreenController {
 	private Nifty nifty;
 	private SimpleApplication app;
-	private int movesRemaining = -1;
+	private int movesRemaining = 0;
 	private Random rand = new Random();
+	private boolean rolled = false;
 
 	// Needed for Nifty to work
 	public GameDisplayScreenState() {
@@ -44,16 +45,27 @@ public class GameDisplayScreenState extends AbstractAppState implements ScreenCo
 		de.lessvoid.nifty.elements.Element movesRemainingText = nifty.getCurrentScreen().findElementByName("movesRemaining");
 		movesRemainingText.getRenderer(TextRenderer.class).setText(((Integer)movesRemaining).toString());
 	}
+	
+	private void updateCurrentPlayer() {
+		Player player = PlayerIterator.whoseTurn();
+		de.lessvoid.nifty.elements.Element whoseTurnText = nifty.getCurrentScreen().findElementByName("currentPlayer");
+		whoseTurnText.getRenderer(TextRenderer.class).setText(player.getName());
+	}
 
 	public void roll() {
-		movesRemaining = rand.nextInt(6) + 1;
-		updateMovesRemaining();
+		if (!rolled) {
+			movesRemaining = rand.nextInt(6) + 1;
+			updateMovesRemaining();
+			rolled = true;
+		}
 	}
 	
 	public void moveUp() {
-		Spatial player = app.getRootNode().getChild("redPlayer");
-		player.move(new Vector3f(0, 1f, 0).mult(Game.tileSize));
-		movesRemaining--;
+		Spatial player = app.getRootNode().getChild(PlayerIterator.getCurrentPlayer().getId());
+		if (movesRemaining > 0) {
+			player.move(new Vector3f(0, 1f, 0).mult(Game.tileSize));
+			movesRemaining--;
+		}
 		if (movesRemaining == 0) {
 			endTurn();
 		}
@@ -61,9 +73,11 @@ public class GameDisplayScreenState extends AbstractAppState implements ScreenCo
 	}
 	
 	public void moveDown() {
-		Spatial player = app.getRootNode().getChild("redPlayer");
-		player.move(new Vector3f(0, -1f, 0).mult(Game.tileSize));
-		movesRemaining--;
+		Spatial player = app.getRootNode().getChild(PlayerIterator.getCurrentPlayer().getId());
+		if (movesRemaining > 0) {
+			player.move(new Vector3f(0, -1f, 0).mult(Game.tileSize));
+			movesRemaining--;
+		}
 		if (movesRemaining == 0) {
 			endTurn();
 		}
@@ -71,9 +85,11 @@ public class GameDisplayScreenState extends AbstractAppState implements ScreenCo
 	}
 	
 	public void moveLeft() {
-		Spatial player = app.getRootNode().getChild("redPlayer");
-		player.move(new Vector3f(-1f, 0, 0).mult(Game.tileSize));
-		movesRemaining--;
+		Spatial player = app.getRootNode().getChild(PlayerIterator.getCurrentPlayer().getId());
+		if (movesRemaining > 0) {
+			player.move(new Vector3f(-1f, 0, 0).mult(Game.tileSize));
+			movesRemaining--;
+		}
 		if (movesRemaining == 0) {
 			endTurn();
 		}
@@ -81,9 +97,11 @@ public class GameDisplayScreenState extends AbstractAppState implements ScreenCo
 	}
 	
 	public void moveRight() {
-		Spatial player = app.getRootNode().getChild("redPlayer");
-		player.move(new Vector3f(1f, 0, 0).mult(Game.tileSize));
-		movesRemaining--;
+		Spatial player = app.getRootNode().getChild(PlayerIterator.getCurrentPlayer().getId());
+		if (movesRemaining > 0) {
+			player.move(new Vector3f(1f, 0, 0).mult(Game.tileSize));
+			movesRemaining--;
+		}
 		if (movesRemaining == 0) {
 			endTurn();
 		}
@@ -91,7 +109,7 @@ public class GameDisplayScreenState extends AbstractAppState implements ScreenCo
 	}
 	
 	public void endTurn() {
-		Spatial player = app.getRootNode().getChild("redPlayer");
+		Spatial player = app.getRootNode().getChild(PlayerIterator.getCurrentPlayer().getId());
 		CollisionResults results = new CollisionResults();
 		Ray ray = new Ray(player.getWorldBound().getCenter(), new Vector3f(0,0,1f));
 		app.getRootNode().collideWith(ray, results);
@@ -105,6 +123,17 @@ public class GameDisplayScreenState extends AbstractAppState implements ScreenCo
 				System.out.println("Here");
 			}
 		}
+		
+		// Get question
+		//
+		
+		// Display question and answers
+		//de.lessvoid.nifty.elements.Element questionAnswer = nifty.createPopup("questionAnswer");
+		//nifty.showPopup(nifty.getCurrentScreen(), questionAnswer.getId(), null);
+		
+		// Move on to next player
+		updateCurrentPlayer();
+		rolled = false;
 	}
 	
 	@Override
@@ -143,8 +172,7 @@ public class GameDisplayScreenState extends AbstractAppState implements ScreenCo
 
 	@Override
 	public void onStartScreen() {
-		// TODO Auto-generated method stub
-		
+		updateCurrentPlayer();
 	}
 	
 }

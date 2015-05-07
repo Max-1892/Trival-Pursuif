@@ -1,5 +1,7 @@
 package game;
 
+import java.util.ArrayList;
+
 import com.jme3.app.Application;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AbstractAppState;
@@ -32,28 +34,44 @@ public class LauncherScreenState extends AbstractAppState implements ScreenContr
 		nifty.gotoScreen(nextScreen);
 	}
 	
-	public int getPlayerNames() {
+	public void initGame() {
+		initPlayers();
+		switchScreens("gameDisplay");
+	}
+	
+	public void initPlayers() {
 		Screen screen = nifty.getCurrentScreen();
-		int count = 0;
+		ArrayList<Player> players = new ArrayList<Player>();
 		TextField textField;
 		textField = screen.findNiftyControl("red_player_name", TextField.class);
 		if (textField.getRealText().length() > 0)  {
-			count++;
+			Player redPlayer = new Player(textField.getRealText(), ColorRGBA.Red);
+			players.add(redPlayer);
+		} else {
+			app.getRootNode().detachChildNamed("redPlayer");
 		}
 		textField = screen.findNiftyControl("white_player_name", TextField.class);
 		if (textField.getRealText().length() > 0) {
-			count++;
+			Player whitePlayer = new Player(textField.getRealText(), ColorRGBA.White);
+			players.add(whitePlayer);
+		} else {
+			app.getRootNode().detachChildNamed("whitePlayer");
 		}
 		textField = screen.findNiftyControl("blue_player_name", TextField.class);
 		if (textField.getRealText().length() > 0) {
-			count++;
+			Player bluePlayer = new Player(textField.getRealText(), ColorRGBA.Blue);
+			players.add(bluePlayer);
+		} else {
+			app.getRootNode().detachChildNamed("bluePlayer");
 		}
 		textField = screen.findNiftyControl("green_player_name", TextField.class);
 		if (textField.getRealText().length()> 0) {
-			count++;
+			Player greenPlayer = new Player(textField.getRealText(), ColorRGBA.Green);
+			players.add(greenPlayer);
+		} else {
+			app.getRootNode().detachChildNamed("greenPlayer");
 		}
-		System.out.println("We have " + count + " players!");
-		return count;
+		PlayerIterator.setActivePlayers(players);
 	}
 
 	public void quitGame() {
