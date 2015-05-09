@@ -4,9 +4,9 @@
 	<useControls filename="nifty-default-controls.xml" />
 	<screen id="start" controller="game.StartScreenState">
 		<layer id="background" childLayout="center">
-			<image filename="Interface/background.jpg"></image>
+			<image filename="Interface/background.jpg" height="100%" width="100%"></image>
 		</layer>
-		<layer id="foreground" childLayout="vertical">
+		<layer id="foreground" childLayout="vertical" backgroundColor="#000a">
 			<panel id="panel_top" height="25%" width="75%" align="center" childLayout="center">
 				<!--  <text text="My Cool Game" font="Interface/Fonts/Default.fnt" width="100%" height="100%" /> -->
 				<image filename="Interface/Trivial-pursuif-logo.png"></image>
@@ -37,9 +37,9 @@
 	</screen>
 	<screen id="launcher" controller="game.LauncherScreenState">
 		<layer id="background" childLayout="center">
-			<image filename="Interface/background.jpg"></image>
+			<image filename="Interface/background.jpg" height="100%" width="100%"></image>
 		</layer>
-		<layer id="foreground" childLayout="vertical">
+		<layer id="foreground" childLayout="vertical" backgroundColor="#000a">
 			<panel id="panel_top_launcher" height="25%" width="75%" align="center" childLayout="center">
 				<image filename="Interface/Trivial-pursuif-logo.png"></image>
 			</panel>
@@ -89,9 +89,9 @@
 	</screen>
 	<screen id="updateQuestionVault" controller="game.UpdateQuestionVaultScreenState">
 		<layer id="background" childLayout="center">
-			<image filename="Interface/background.jpg"></image>
+			<image filename="Interface/background.jpg" height="100%" width="100%"></image>
 		</layer>
-		<layer id="foreground" childLayout="vertical">
+		<layer id="foreground" childLayout="vertical" backgroundColor="#000a">
 			<panel id="panel_top_update_question_vault" height="25%" width="75%" align="center" childLayout="center">
 				<image filename="Interface/Trivial-pursuif-logo.png"></image>
 			</panel>
@@ -121,9 +121,9 @@
 	</screen>
 	<screen id="editData" controller="game.EditDataScreenState">
 		<layer id="background" childLayout="center">
-			<image filename="Interface/background.jpg"></image>
+			<image filename="Interface/background.jpg" height="100%" width="100%"></image>
 		</layer>
-		<layer id="foreground" childLayout="vertical">
+		<layer id="foreground" childLayout="vertical" backgroundColor="#000a">
 			<panel id="panel_top_edit_data" height="20%" width="75%" align="center" childLayout="center">
 				<image filename="Interface/Trivial-pursuif-logo.png"></image>
 			</panel>
@@ -190,9 +190,9 @@
 	</screen>
 	<screen id="addData" controller="game.AddDataScreenState">
 		<layer id="background" childLayout="center">
-			<image filename="Interface/background.jpg"></image>
+			<image filename="Interface/background.jpg" height="100%" width="100%"></image>
 		</layer>
-		<layer id="foreground" childLayout="vertical">
+		<layer id="foreground" childLayout="vertical" backgroundColor="#000a">
 			<panel id="panel_top_launcher" height="25%" width="75%" align="center" childLayout="center">
 				<image filename="Interface/Trivial-pursuif-logo.png"></image>
 			</panel>
@@ -296,7 +296,7 @@
 								<control name="label" text="Moves remaining: " />
 							</panel>
 							<panel width="100%" height="50%" childLayout="center">
-								<text id="movesRemaining" text="Roll Dice Above" font="Interface/Fonts/Default.fnt" />
+								<text id="movesRemaining" text="" font="Interface/Fonts/Default.fnt" />
 							</panel>
 						</panel>
 						<panel width="100%" height="10%" childLayout="center">
@@ -310,12 +310,10 @@
 		</layer>
 	</screen>
 	<popup id="gameOver" childLayout="center" backgroundColor="#000a" controller="game.GameDisplayScreenState">
+		<interact onClick="closeGameOverPopup()" />
 		<panel childLayout="center" width="30%" height="20%" align="center" valign="center" backgroundColor="#000f">
 			<panel childLayout="vertical">
-				<control align="center" name="label" text="You get to roll again!" wrap="true"/>
-				<control align="center" name="button" text="OK" wrap="true">
-					<interact onClick="closeGameOverPopup()" />
-				</control>
+				<control id="winner" align="center" name="label" text="" wrap="true"/>
 			</panel>
 		</panel>
 	</popup>

@@ -1,5 +1,7 @@
 package game;
 
+import java.util.HashMap;
+
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AppState;
 import com.jme3.material.Material;
@@ -17,9 +19,48 @@ import de.lessvoid.nifty.Nifty;
 public class Game extends SimpleApplication {
 
 	public static final float tileSize = 0.1f;
+	public static HashMap<String, Geometry> wedges = new HashMap<String, Geometry>();
 	private final Vector3f boardCenterOffset = new Vector3f(-2f,0,0);
 	private static int squareNumber = 0;
 
+	private void buildWedges() {
+		// White
+		Quad quad = new Quad(tileSize*.20f, tileSize*.20f);
+		Geometry geom = new Geometry("wedge", quad);
+		Material mat = new Material(assetManager, 
+				"Common/MatDefs/Misc/Unshaded.j3md");
+		mat.setColor("Color", ColorRGBA.White);
+		geom.setMaterial(mat);
+		wedges.put("events", geom);
+		
+		// Red
+		Quad quad2 = new Quad(tileSize*.20f, tileSize*.20f);
+		Geometry geom2 = new Geometry("wedge", quad2);
+		Material mat2 = new Material(assetManager, 
+				"Common/MatDefs/Misc/Unshaded.j3md");
+		mat2.setColor("Color", ColorRGBA.Red);
+		geom2.setMaterial(mat2);
+		wedges.put("people", geom2);
+
+		// Blue
+		Quad quad3 = new Quad(tileSize*.20f, tileSize*.20f);
+		Geometry geom3 = new Geometry("wedge", quad3);
+		Material mat3 = new Material(assetManager, 
+				"Common/MatDefs/Misc/Unshaded.j3md");
+		mat3.setColor("Color", ColorRGBA.Blue);
+		geom3.setMaterial(mat3);
+		wedges.put("places", geom3);
+
+		// Green
+		Quad quad4 = new Quad(tileSize*.20f, tileSize*.20f);
+		Geometry geom4 = new Geometry("wedge", quad4);
+		Material mat4 = new Material(assetManager, 
+				"Common/MatDefs/Misc/Unshaded.j3md");
+		mat4.setColor("Color", ColorRGBA.Green);
+		geom4.setMaterial(mat4);
+		wedges.put("independence_day", geom4);
+	}
+	
 	private void buildPlayer(float width, float height,
 			String name, ColorRGBA color,
 			Vector3f offset) {
@@ -29,8 +70,10 @@ public class Game extends SimpleApplication {
 				"Common/MatDefs/Misc/Unshaded.j3md");
 		mat.setColor("Color", color);
 		geom.setMaterial(mat);
-		geom.move(offset.mult(tileSize));
-		rootNode.attachChild(geom);
+		Node player = new Node(name.toUpperCase());
+		player.attachChild(geom);
+		player.move(offset.mult(tileSize));
+		rootNode.attachChild(player);
 	}
 
 	private void buildBoardSquare(float width, float height, 
@@ -199,6 +242,9 @@ public class Game extends SimpleApplication {
 		buildPlayer(tileSize*.5f, tileSize*.5f,
 				"greenPlayer", Player.Green,
 				boardCenterOffset.add(new Vector3f(5*tileSize,5*tileSize,0)));
+		
+		// Build wedges
+		buildWedges();
 	}
 	
 	@Override

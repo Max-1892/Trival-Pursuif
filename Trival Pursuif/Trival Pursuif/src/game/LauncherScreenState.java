@@ -48,7 +48,7 @@ public class LauncherScreenState extends AbstractAppState implements ScreenContr
 			Player redPlayer = new Player(textField.getRealText(), Player.Red);
 			players.add(redPlayer);
 		} else {
-			app.getRootNode().detachChildNamed("redPlayer");
+			app.getRootNode().detachChildNamed("redPlayer".toUpperCase());
 		}
 		textField.setText("");
 		textField = screen.findNiftyControl("white_player_name", TextField.class);
@@ -56,7 +56,7 @@ public class LauncherScreenState extends AbstractAppState implements ScreenContr
 			Player whitePlayer = new Player(textField.getRealText(), Player.White);
 			players.add(whitePlayer);
 		} else {
-			app.getRootNode().detachChildNamed("whitePlayer");
+			app.getRootNode().detachChildNamed("whitePlayer".toUpperCase());
 		}
 		textField.setText("");
 		textField = screen.findNiftyControl("blue_player_name", TextField.class);
@@ -64,7 +64,7 @@ public class LauncherScreenState extends AbstractAppState implements ScreenContr
 			Player bluePlayer = new Player(textField.getRealText(), Player.Blue);
 			players.add(bluePlayer);
 		} else {
-			app.getRootNode().detachChildNamed("bluePlayer");
+			app.getRootNode().detachChildNamed("bluePlayer".toUpperCase());
 		}
 		textField.setText("");
 		textField = screen.findNiftyControl("green_player_name", TextField.class);
@@ -72,7 +72,7 @@ public class LauncherScreenState extends AbstractAppState implements ScreenContr
 			Player greenPlayer = new Player(textField.getRealText(), Player.Green);
 			players.add(greenPlayer);
 		} else {
-			app.getRootNode().detachChildNamed("greenPlayer");
+			app.getRootNode().detachChildNamed("greenPlayer".toUpperCase());
 		}
 		PlayerIterator.setActivePlayers(players);
 	}

@@ -57,6 +57,7 @@ public class GameDisplayScreenState extends AbstractAppState implements ScreenCo
 
 	public void closeGameOverPopup() {
 		nifty.closePopup(gameOver.getId());
+		nifty.gotoScreen("start");
 	}
 
 	public void closeQAPopup() {
@@ -104,7 +105,8 @@ public class GameDisplayScreenState extends AbstractAppState implements ScreenCo
 	}
 	
 	public void moveUp() {
-		Spatial player = app.getRootNode().getChild(PlayerIterator.getCurrentPlayer().getId());
+		//Spatial player = app.getRootNode().getChild(PlayerIterator.getCurrentPlayer().getId());
+		Node player = (Node) app.getRootNode().getChild(PlayerIterator.getCurrentPlayer().getId().toUpperCase());
 		if (rolled) {
 			if (movesRemaining > 0 && rolled) {
 				player.move(new Vector3f(0, 1f, 0).mult(Game.tileSize));
@@ -118,7 +120,8 @@ public class GameDisplayScreenState extends AbstractAppState implements ScreenCo
 	}
 	
 	public void moveDown() {
-		Spatial player = app.getRootNode().getChild(PlayerIterator.getCurrentPlayer().getId());
+		//Spatial player = app.getRootNode().getChild(PlayerIterator.getCurrentPlayer().getId());
+		Node player = (Node) app.getRootNode().getChild(PlayerIterator.getCurrentPlayer().getId().toUpperCase());
 		if (rolled) {
 			if (movesRemaining > 0) {
 				player.move(new Vector3f(0, -1f, 0).mult(Game.tileSize));
@@ -132,7 +135,8 @@ public class GameDisplayScreenState extends AbstractAppState implements ScreenCo
 	}
 	
 	public void moveLeft() {
-		Spatial player = app.getRootNode().getChild(PlayerIterator.getCurrentPlayer().getId());
+		//Spatial player = app.getRootNode().getChild(PlayerIterator.getCurrentPlayer().getId());
+		Node player = (Node) app.getRootNode().getChild(PlayerIterator.getCurrentPlayer().getId().toUpperCase());
 		if (rolled) {
 			if (movesRemaining > 0) {
 				player.move(new Vector3f(-1f, 0, 0).mult(Game.tileSize));
@@ -146,7 +150,8 @@ public class GameDisplayScreenState extends AbstractAppState implements ScreenCo
 	}
 	
 	public void moveRight() {
-		Spatial player = app.getRootNode().getChild(PlayerIterator.getCurrentPlayer().getId());
+		//Spatial player = app.getRootNode().getChild(PlayerIterator.getCurrentPlayer().getId());
+		Node player = (Node) app.getRootNode().getChild(PlayerIterator.getCurrentPlayer().getId().toUpperCase());
 		if (rolled) {
 			if (movesRemaining > 0) {
 				player.move(new Vector3f(1f, 0, 0).mult(Game.tileSize));
@@ -180,15 +185,15 @@ public class GameDisplayScreenState extends AbstractAppState implements ScreenCo
 			// Get question
 			// TODO: Replace this with a database call
 			queryForQuestion(category);
-			
+
 			// Display question
-			if (category == SquareCategory.ANY.toString()) {
+			if (category.equals(SquareCategory.ANY.toString())) {
 				if (currentPlayer.hasAllTokens()) {
 					// Final turn
 					finalTurn = true;
 					nifty.showPopup(nifty.getCurrentScreen(), chooseCate.getId(), null);
 					LabelControl instr = chooseCate.findControl("instructions", LabelControl.class);
-					instr.setText("Other players: Choose a category of question to ask" + currentPlayer.getName());
+					instr.setText("Other players: Choose a category of question to ask " + currentPlayer.getName());
 				} else {
 					// Player gets to choose category
 					finalTurn = false;
@@ -196,11 +201,11 @@ public class GameDisplayScreenState extends AbstractAppState implements ScreenCo
 					LabelControl instr = chooseCate.findControl("instructions", LabelControl.class);
 					instr.setText("Choose your own question category!");
 				}
-			} else if (name == "headquarter") {
+			} else if (name.length() > 11 && name.substring(name.length() - 11, name.length()).toLowerCase().equals("headquarter")) {
 				headquarterQuestion = true;
 				nifty.showPopup(nifty.getCurrentScreen(), questionAnswer.getId(), null);
 				populateQAPopup();
-			} else if (category == SquareCategory.ROLL_AGAIN.toString()) {
+			} else if (category.equals(SquareCategory.ROLL_AGAIN.toString())) {
 				// skip question
 				nifty.showPopup(nifty.getCurrentScreen(), rollAgain.getId(), null);
 				rolled = false;
@@ -308,9 +313,11 @@ public class GameDisplayScreenState extends AbstractAppState implements ScreenCo
 		if (correctAns) {
 			if (finalTurn) {
 				nifty.showPopup(nifty.getCurrentScreen(), gameOver.getId(), null);
+				LabelControl gameOverText = gameOver.findControl("winner", LabelControl.class);
+				gameOverText.setText(currentPlayer.getName() + " wins!");
 			} else {
 				if (headquarterQuestion && !currentPlayer.hasToken(currentQuestion.getCategory())) {
-					currentPlayer.addToken(currentQuestion.getCategory());
+					currentPlayer.addToken(app.getRootNode(), currentQuestion.getCategory());
 				}
 				nifty.showPopup(nifty.getCurrentScreen(), correct.getId(), null);
 			}
