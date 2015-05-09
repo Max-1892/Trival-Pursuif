@@ -52,7 +52,7 @@ public class Game extends SimpleApplication {
 	private void buildLeftSide() {
 		// Blue "headquarters" square
 		buildBoardSquare(tileSize, tileSize,
-				"headquarter", ColorRGBA.Blue, 
+				"blueHeadquarter", ColorRGBA.Blue, 
 				-6f, 3f, SquareCategory.PLACES);
 		for(int i = 1; i < 7; i++) {
 			Square sq = SquareIterator.getNextSquare();
@@ -66,7 +66,7 @@ public class Game extends SimpleApplication {
 	private void buildRightSide() {
 		// white "headquarters" square
 		buildBoardSquare(tileSize, tileSize,
-				"headquarter", ColorRGBA.White, 
+				"whiteHeadquarter", ColorRGBA.White, 
 				2f, -3f, SquareCategory.EVENTS);
 		for(int i = 1; i < 7; i++) {
 			Square sq = SquareIterator.getNextSquare();
@@ -80,7 +80,7 @@ public class Game extends SimpleApplication {
 	private void buildTopSide() {
 		// red "headquarters" square
 		buildBoardSquare(tileSize, tileSize,
-				"headquarter", ColorRGBA.Red, 
+				"redHeadquarter", ColorRGBA.Red, 
 				2f, 3f, SquareCategory.PEOPLE);
 		for(int i = 1; i < 8; i++) {
 			Square sq = SquareIterator.getNextSquare();
@@ -94,7 +94,7 @@ public class Game extends SimpleApplication {
 	private void buildBottomSide() {
 		// green "headquarters" square
 		buildBoardSquare(tileSize, tileSize,
-				"headquarter", ColorRGBA.Green, 
+				"greenHeadquarter", ColorRGBA.Green, 
 				-6f, -3f, SquareCategory.INDEPENDENCE_DAY);
 		for(int i = 1; i < 8; i++) {
 			Square sq = SquareIterator.getNextSquare();
@@ -188,16 +188,16 @@ public class Game extends SimpleApplication {
 
 		// Build all players and detect them later if needed
 		buildPlayer(tileSize*.5f, tileSize*.5f,
-				"redPlayer", ColorRGBA.Red,
+				"redPlayer", Player.Red,
 				boardCenterOffset.add(new Vector3f(0,0,0)));
 		buildPlayer(tileSize*.5f, tileSize*.5f,
-				"bluePlayer", ColorRGBA.Blue,
+				"bluePlayer", Player.Blue,
 				boardCenterOffset.add(new Vector3f(0,5*tileSize,0)));
 		buildPlayer(tileSize*.5f, tileSize*.5f,
-				"whitePlayer", ColorRGBA.White,
+				"whitePlayer", Player.White,
 				boardCenterOffset.add(new Vector3f(5*tileSize,0,0)));
 		buildPlayer(tileSize*.5f, tileSize*.5f,
-				"greenPlayer", ColorRGBA.Green,
+				"greenPlayer", Player.Green,
 				boardCenterOffset.add(new Vector3f(5*tileSize,5*tileSize,0)));
 	}
 	

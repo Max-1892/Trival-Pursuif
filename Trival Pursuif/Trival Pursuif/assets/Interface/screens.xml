@@ -296,7 +296,7 @@
 								<control name="label" text="Moves remaining: " />
 							</panel>
 							<panel width="100%" height="50%" childLayout="center">
-								<text id="movesRemaining" text="" font="Interface/Fonts/Default.fnt" />
+								<text id="movesRemaining" text="Roll Dice Above" font="Interface/Fonts/Default.fnt" />
 							</panel>
 						</panel>
 						<panel width="100%" height="10%" childLayout="center">
@@ -309,13 +309,38 @@
 			</panel>
 		</layer>
 	</screen>
-	<popup id="rollAgain" childLayout="center" backgroundColor="#000a" controller="game.GameDisplayScreenState">
+	<popup id="gameOver" childLayout="center" backgroundColor="#000a" controller="game.GameDisplayScreenState">
 		<panel childLayout="center" width="30%" height="20%" align="center" valign="center" backgroundColor="#000f">
 			<panel childLayout="vertical">
 				<control align="center" name="label" text="You get to roll again!" wrap="true"/>
-				<control id="OK" align="center" name="button" wrap="true" label="OK">
-					<interact onClick="closeRollAgainPopup()" />
+				<control align="center" name="button" text="OK" wrap="true">
+					<interact onClick="closeGameOverPopup()" />
 				</control>
+			</panel>
+		</panel>
+	</popup>
+
+	<popup id="rollAgain" childLayout="center" backgroundColor="#000a" controller="game.GameDisplayScreenState">
+		<interact onClick="closeRollAgainPopup()" />
+		<panel childLayout="center" width="30%" height="20%" align="center" valign="center" backgroundColor="#000f">
+			<panel childLayout="vertical">
+				<control align="center" name="label" text="You get to roll again!" wrap="true"/>
+			</panel>
+		</panel>
+	</popup>
+	<popup id="incorrect" childLayout="center" backgroundColor="#000a" controller="game.GameDisplayScreenState">
+		<interact onClick="closeIncorrectPopup()" />
+		<panel childLayout="center" width="50%" height="20%" align="center" valign="center" backgroundColor="#000f">
+			<panel childLayout="vertical">
+				<control align="center" name="label" text="Unfortunately, that is incorrect. Your turn is complete." wrap="true"/>
+			</panel>
+		</panel>
+	</popup>
+	<popup id="correct" childLayout="center" backgroundColor="#000a" controller="game.GameDisplayScreenState">
+		<interact onClick="closeCorrectPopup()" />
+		<panel childLayout="center" width="30%" height="20%" align="center" valign="center" backgroundColor="#000f">
+			<panel childLayout="vertical">
+				<control align="center" name="label" text="That's correct! Roll again!" wrap="true"/>
 			</panel>
 		</panel>
 	</popup>
@@ -327,22 +352,22 @@
 				</panel>
 				<panel height="20%" childLayout="center" align="center">
 					<control id="answer1" height="60%" width="90%" name="button" wrap="true" label="this is a really long answer asdpfjasldkfa;lskdjf;asldkfjsaldkfjas;dlf">
-						<interact onClick="closeQAPopup()" />
+						<interact onClick="closeNormalQuestion()" />
 					</control>
 				</panel>
 				<panel height="20%" childLayout="center" align="center">
 					<control id="answer2" width="90%" height="60%" name="button" label="answer 2">
-						<interact onClick="closeQAPopup()" />
+						<interact onClick="closeNormalQuestion()" />
 					</control>
 				</panel>
 				<panel height="20%" childLayout="center" align="center">
 					<control id="answer3" height="60%" width="90%" name="button" label="answer 3">
-						<interact onClick="closeQAPopup()" />
+						<interact onClick="closeNormalQuestion()" />
 					</control>
 				</panel>
 				<panel height="20%" childLayout="center" align="center">
 					<control id="answer4" height="60%" width="90%" name="button" label="answer 4">
-						<interact onClick="closeQAPopup()" />
+						<interact onClick="closeNormalQuestion()" />
 					</control>
 				</panel>
 			</panel>

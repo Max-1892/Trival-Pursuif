@@ -45,28 +45,31 @@ public class LauncherScreenState extends AbstractAppState implements ScreenContr
 		TextField textField;
 		textField = screen.findNiftyControl("red_player_name", TextField.class);
 		if (textField.getRealText().length() > 0)  {
-			Player redPlayer = new Player(textField.getRealText(), ColorRGBA.Red);
+			Player redPlayer = new Player(textField.getRealText(), Player.Red);
 			players.add(redPlayer);
 		} else {
 			app.getRootNode().detachChildNamed("redPlayer");
 		}
+		textField.setText("");
 		textField = screen.findNiftyControl("white_player_name", TextField.class);
 		if (textField.getRealText().length() > 0) {
-			Player whitePlayer = new Player(textField.getRealText(), ColorRGBA.White);
+			Player whitePlayer = new Player(textField.getRealText(), Player.White);
 			players.add(whitePlayer);
 		} else {
 			app.getRootNode().detachChildNamed("whitePlayer");
 		}
+		textField.setText("");
 		textField = screen.findNiftyControl("blue_player_name", TextField.class);
 		if (textField.getRealText().length() > 0) {
-			Player bluePlayer = new Player(textField.getRealText(), ColorRGBA.Blue);
+			Player bluePlayer = new Player(textField.getRealText(), Player.Blue);
 			players.add(bluePlayer);
 		} else {
 			app.getRootNode().detachChildNamed("bluePlayer");
 		}
+		textField.setText("");
 		textField = screen.findNiftyControl("green_player_name", TextField.class);
 		if (textField.getRealText().length()> 0) {
-			Player greenPlayer = new Player(textField.getRealText(), ColorRGBA.Green);
+			Player greenPlayer = new Player(textField.getRealText(), Player.Green);
 			players.add(greenPlayer);
 		} else {
 			app.getRootNode().detachChildNamed("greenPlayer");
