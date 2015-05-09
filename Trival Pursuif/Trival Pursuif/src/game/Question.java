@@ -11,11 +11,15 @@ public class Question {
 	private String additionalAnswer3;
 	private String additionalAnswer4;
 
+	public Question () {
+		
+	}
+
 	public Question(String question, String correctAnswer, 
 			String additionalAnswer2, String additionalAnswer3, 
-			String additionalAnswer4, String category) {
+			String additionalAnswer4, SquareCategory category) {
 		this.question = question;
-		this.category = category;
+		this.category = category.toString();
 		this.correctAnswer = correctAnswer;
 		this.additionalAnswer2 = additionalAnswer2;
 		this.additionalAnswer3 = additionalAnswer3;
@@ -46,6 +50,30 @@ public class Question {
 	
 	public String toString() {
 		return question;
+	}
+
+	public String getQuestion() {
+		return question;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public String getCorrectAnswer() {
+		return correctAnswer;
+	}
+
+	public String getAdditionalAnswer2() {
+		return additionalAnswer2;
+	}
+
+	public String getAdditionalAnswer3() {
+		return additionalAnswer3;
+	}
+
+	public String getAdditionalAnswer4() {
+		return additionalAnswer4;
 	}
 
 }

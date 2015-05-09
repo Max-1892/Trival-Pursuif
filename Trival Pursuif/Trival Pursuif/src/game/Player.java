@@ -1,13 +1,14 @@
 package game;
 
 import java.util.ArrayList;
+import java.util.TreeSet;
 
 import com.jme3.math.ColorRGBA;
 
 public class Player {
 	private String name;
 	private ColorRGBA color;
-	private ArrayList<ColorRGBA> tokens;
+	private TreeSet<String> tokens;
 	private String id;
 	
 	public Player(String name, ColorRGBA color) {
@@ -28,17 +29,18 @@ public class Player {
 		return this.id;
 	}
 	public boolean hasAllTokens() {
-		return tokens.contains(ColorRGBA.Blue) &&
-		tokens.contains(ColorRGBA.Red) &&
-		tokens.contains(ColorRGBA.White) &&
-		tokens.contains(ColorRGBA.Green);
+		return tokens.contains("blue") &&
+		tokens.contains("red") &&
+		tokens.contains("white") &&
+		tokens.contains("green");
 	}
 	
-	public boolean hasToken(ColorRGBA token) {
+	public boolean hasToken(String token) {
 		return tokens.contains(token);
 	}
 	
-	public void addToken(ColorRGBA token) {
+	public void addToken(String token) {
+		token = token.toLowerCase();
 		if (!tokens.contains(token)) {
 			tokens.add(token);
 		}

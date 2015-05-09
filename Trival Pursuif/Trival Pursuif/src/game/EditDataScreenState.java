@@ -88,19 +88,19 @@ public class EditDataScreenState extends AbstractAppState implements ScreenContr
 		ListBox<Question> listBox = screen.findNiftyControl("edit_data_listbox", ListBox.class);
 		listBox.addItem(new Question("What is a sample question?", "correctAnswer1", 
 				"addAnswer2-1", "addAnswer3-1",
-				"addAnswer4-1", "category1"));
+				"addAnswer4-1", SquareCategory.EVENTS));
 		listBox.addItem(new Question("Really though, what is a sample question?", "correctAnswer2", 
 				"addAnswer2-2", "addAnswer3-2",
-				"addAnswer4-2", "category2"));
+				"addAnswer4-2", SquareCategory.PLACES));
 		listBox.addItem(new Question("Please? What is a sample question?", "correctAnswer3", 
 				"addAnswer2-3", "addAnswer3-3",
-				"addAnswer4-3", "category3"));
+				"addAnswer4-3", SquareCategory.PEOPLE));
 		listBox.addItem(new Question("Anyone? What is a sample question?", "correctAnswer4", 
 				"addAnswer2-4", "addAnswer3-4",
-				"addAnswer4-4", "category4"));
+				"addAnswer4-4", SquareCategory.INDEPENDENCE_DAY));
 		listBox.addItem(new Question("OK. What is a sample question?", "correctAnswer5", 
 				"addAnswer2-5", "addAnswer3-5",
-				"addAnswer4-5", "category5"));
+				"addAnswer4-5", SquareCategory.ANY));
 	}
 
 	@Override

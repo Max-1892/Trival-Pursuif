@@ -52,7 +52,7 @@ public class Game extends SimpleApplication {
 	private void buildLeftSide() {
 		// Blue "headquarters" square
 		buildBoardSquare(tileSize, tileSize,
-				"blueHq", ColorRGBA.Blue, 
+				"headquarter", ColorRGBA.Blue, 
 				-6f, 3f, SquareCategory.PLACES);
 		for(int i = 1; i < 7; i++) {
 			Square sq = SquareIterator.getNextSquare();
@@ -66,7 +66,7 @@ public class Game extends SimpleApplication {
 	private void buildRightSide() {
 		// white "headquarters" square
 		buildBoardSquare(tileSize, tileSize,
-				"whiteHq", ColorRGBA.White, 
+				"headquarter", ColorRGBA.White, 
 				2f, -3f, SquareCategory.EVENTS);
 		for(int i = 1; i < 7; i++) {
 			Square sq = SquareIterator.getNextSquare();
@@ -80,7 +80,7 @@ public class Game extends SimpleApplication {
 	private void buildTopSide() {
 		// red "headquarters" square
 		buildBoardSquare(tileSize, tileSize,
-				"redHq", ColorRGBA.Red, 
+				"headquarter", ColorRGBA.Red, 
 				2f, 3f, SquareCategory.PEOPLE);
 		for(int i = 1; i < 8; i++) {
 			Square sq = SquareIterator.getNextSquare();
@@ -94,7 +94,7 @@ public class Game extends SimpleApplication {
 	private void buildBottomSide() {
 		// green "headquarters" square
 		buildBoardSquare(tileSize, tileSize,
-				"greenHq", ColorRGBA.Green, 
+				"headquarter", ColorRGBA.Green, 
 				-6f, -3f, SquareCategory.INDEPENDENCE_DAY);
 		for(int i = 1; i < 8; i++) {
 			Square sq = SquareIterator.getNextSquare();
@@ -216,7 +216,6 @@ public class Game extends SimpleApplication {
 		AddDataScreenState addDataScreenState = new AddDataScreenState(this, nifty);
 		EditDataScreenState editDataScreenState = new EditDataScreenState(this, nifty);
 		GameDisplayScreenState gameDisplayScreenState = new GameDisplayScreenState(this, nifty);
-		QuestionAnswerScreenState questionAnswerScreenState = new QuestionAnswerScreenState(this, nifty);
 		
 		// Register with app's stateManager
 		stateManager.attach(startScreenState);
@@ -225,7 +224,6 @@ public class Game extends SimpleApplication {
 		stateManager.attach(addDataScreenState);
 		stateManager.attach(editDataScreenState);
 		stateManager.attach(gameDisplayScreenState);
-		stateManager.attach(questionAnswerScreenState);
 		
 		// notify boilerplate
 		guiViewPort.addProcessor(niftyDisplay);
@@ -233,8 +231,7 @@ public class Game extends SimpleApplication {
 		// load XML GUI into nifty
 		nifty.fromXml("Interface/screens.xml", "start", 
 				startScreenState, launcherScreenState, updateQuestionVaultScreenState,
-				addDataScreenState, editDataScreenState, gameDisplayScreenState,
-				questionAnswerScreenState);
+				addDataScreenState, editDataScreenState, gameDisplayScreenState);
 		cam.setParallelProjection(true);
 		getFlyByCamera().setEnabled(false);
 		setDisplayStatView(false);
